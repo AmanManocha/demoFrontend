@@ -5,16 +5,16 @@ import { useNavigate} from 'react-router-dom';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    // firstName: '',
+    // lastName: '',
     email: '',
     password: '',
   });
   const navigate = useNavigate();
   const [error, setError] = useState("")
   const payload = {
-    firstName: formData.firstName,
-    lastName: formData.lastName,
+    // firstName: formData.firstName,
+    // lastName: formData.lastName,
     email: formData.email,
     password: formData.password,
 
@@ -30,7 +30,7 @@ const SignUp = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     await axios.post('http://127.0.0.1:3000/api/auth/create',payload)
-    .then((res)=> navigate('/login'))
+    .then((res)=> navigate('/'))
     .catch((err)=> setError((err.response.data.message)))
     console.log('Signup clicked', formData);
     // You can make an API request to handle the signup process
@@ -41,7 +41,7 @@ const SignUp = () => {
       <Paper elevation={3} style={{ padding: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography variant="h5">Sign Up</Typography>
         <form style={{ width: '100%', marginTop: 16 }} onSubmit={handleSubmit}>
-          <TextField
+          {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -52,8 +52,8 @@ const SignUp = () => {
             autoComplete="firstName"
             value={formData.firstName}
             onChange={handleChange}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -64,7 +64,7 @@ const SignUp = () => {
             autoComplete="lastName"
             value={formData.lastName}
             onChange={handleChange}
-          />
+          /> */}
           <TextField
             variant="outlined"
             margin="normal"

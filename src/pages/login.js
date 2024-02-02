@@ -41,9 +41,10 @@ const Login = () => {
         password,
       });
   
-      const { token, role } = response.data;
-  
+      const { token, role, userId } = response.data;
+
       localStorage.setItem('accessToken', token);
+      localStorage.setItem('userId', userId);
   
       // Perform role-based navigation
       if (role === 'admin') {
