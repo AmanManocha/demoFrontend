@@ -15,6 +15,8 @@ import { PhotoCamera } from '@mui/icons-material';
 import Stack from '@mui/material/Stack';
 import DateRange from '../components/dateRangePicker';
 import { formattedDate } from '../components/dateFormat';
+import MapComponent from '../components/maps';
+import SearchLocationInput from '../components/googleLocation';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   marginTop: theme.spacing(8),
@@ -45,6 +47,10 @@ const MultiStepForm = () => {
   const [skipped, setSkipped] = useState(new Set());
   const token = localStorage.getItem('accessToken');
   const userId = localStorage.getItem('userId');
+  const [selectedLocation, setSelectedLocation]=useState({
+    lat:28.7041,
+    lng:77.1025
+  });
   const [formData, setFormData] = useState({
     // Initial form data state
     firstName: '',
@@ -52,7 +58,10 @@ const MultiStepForm = () => {
     age: '',
     city: '',
     pinCode: '',
-    location: '',
+    // location: {
+    //     lat:28.7041,
+    //     lng:77.1025
+    //   },
     // Step 2: Professional Details
     profession: '',
     experience: '',
@@ -212,6 +221,7 @@ const handleFinish = async () => {
         }
         const userFormPayload={...formData}
         userFormPayload.profilePhoto=formData.profilePhoto.name
+        userFormPayload.location = selectedLocation
         let fileArray= []
         
         fileArray=Object.keys(formData.documents).map(item=>formData.documents[item].name)
@@ -271,13 +281,15 @@ const handleFinish = async () => {
                           value={formData.pinCode}
                           onChange={handleInputChange('pinCode')}
                         />
-                        <StyledTextField
+                        {/* <StyledTextField
                           label="Location"
                           fullWidth
                           value={formData.location}
                           onChange={handleInputChange('location')}
-                        />
-                      </>
+                        /> */}
+                          <SearchLocationInput setSelectedLocation={setSelectedLocation}/>
+                           <MapComponent selectedLocation={selectedLocation}/>
+                        </>
         );
       case 1:
         return (
