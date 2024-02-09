@@ -1,0 +1,48 @@
+.tableContainer {
+    margin: 20px auto;
+    width: 95% !important; /* Adjust the width of the table container */
+    max-height: 500px; /* Set a maximum height for the table container */
+    overflow: auto;
+  }
+  
+  .searchContainer {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    margin-bottom: 20px; /* Add some margin to the bottom */
+  }
+  
+  .searchBar {
+    width: 80%; /* Set the width of the search bar */
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Add some space between the table and the pagination */
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #e0e0e0;
+    padding: 8px;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+  .table th:first-child,
+  .table td:first-child {
+    border-left: none;
+  }
+  
+  .table th:last-child,
+  .table td:last-child {
+    border-right: none;
+  }
+ 
+  
