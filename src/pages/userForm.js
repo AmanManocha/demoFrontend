@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
 import axios from 'axios';
 import {
@@ -121,6 +121,30 @@ const MultiStepForm = () => {
     setDateRange(true)
   };
 
+  useEffect(() => {
+    
+    if("Notification" in window) {
+      if(Notification.permission !== "granted")
+      {
+        Notification.requestPermission();
+      }
+    } else { 
+      console.log("Notifications not supported in this browser")
+    }
+  }, [])
+  const handleNotification = (notify) => {
+    console.log(notify,"ssssssssssssssssssssssssssssssssssssssss")
+    console.log(Notification.permission)
+    if(Notification.permission==="granted")
+    {
+      const notification= new Notification(notify)
+
+      notification.onclick=()=>{
+        console.log("Notification Clicked")
+      }
+    }
+  };
+
 
   const handleInputChange = (fieldName) => (event) => {
     if (fieldName === 'projectDuration') {
@@ -194,7 +218,10 @@ const handleFinish = async () => {
             'Content-Type': 'multipart/form-data',
             accessToken: token,
           },
-        });
+        })
+        .then((res)=>{
+            console.log(res,"pp")
+             handleNotification(res.data)})
   
         // Make API call to upload documents
         const documentsFormData = new FormData();
@@ -213,7 +240,8 @@ const handleFinish = async () => {
                     'Content-Type': 'multipart/form-data',
                     accessToken: token,
                 },
-            });
+            })
+            .then((res)=> handleNotification(res.data))
             console.log('Files uploaded successfully:', response.data);
         } catch (error) {
             console.error('Error uploading files:', error);
@@ -233,9 +261,9 @@ const handleFinish = async () => {
             'Content-Type': 'application/json',
             accessToken: token,
           },
-        });
+        }) 
+        .then((res)=> handleNotification(res.data.message))
   
-        console.log('Profile photo, documents, and form data submitted successfully.');
       } catch (error) {
         console.error('Error submitting data:', error);
       }
